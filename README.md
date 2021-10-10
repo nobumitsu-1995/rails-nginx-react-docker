@@ -24,7 +24,7 @@ username: <%= ENV.fetch('POSTGRES_USER') { 'root' } %>
 password: <%= ENV.fetch('POSTGRES_PASSWORD') { 'password' } %>
 host: db
 ``` 
-5.　`docker-compose run api rails db:create`
+5. `docker-compose run api rails db:create`
 
 ## Reactアプリの作成
 1. `cd front/frontend`<br>
