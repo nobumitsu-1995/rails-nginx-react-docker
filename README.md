@@ -1,7 +1,7 @@
 # rails,postgresql,pume,nginx,react,dockerを使用した環境構築雛形
 ### `docker-compose build`でイメージを構築
 
-## Railsアプリの作成
+## Railsアプリの作成<br>
 1.　`cd api`<br>
 2. `docker-compose run api rails new . --api --force --no-deps --database=postgresql --skip-test`<br>
 3. config/puma.rbを以下のように編集<br>
@@ -15,6 +15,7 @@ app_root = File.expand_path("../..", __FILE__)
 bind "unix://#{app_root}/tmp/sockets/puma.sock"
 stdout_redirect "#{app_root}/log/puma.stdout.log", "#{app_root}/log/puma.stderr.log", true
 ```
+<br>
 4. config/database.ymlのdefault:を以下のように編集<br>
 ```ruby:config/database.yml
 adapter: postgresql
@@ -26,7 +27,7 @@ host: db
 ``` 
 5.　`docker-compose run api rails db:create`
 
-## Reactアプリの作成
+## Reactアプリの作成<br>
 1. `cd front/frontend`<br>
 2. `docker-compose run front npx create-react-app frontend --template=typescript`<br>
 
