@@ -1,0 +1,55 @@
+version: '3'
+services:
+    db:
+        image: postgres:13
+        env_file:
+            - ./environments/db.env
+        volumes:
+            - db-data:/var/lib/postgres
+        ports:
+            - "5432:5432"
+    api:
+        build:
+            context: ./api/
+            dockerfile: Dockerfile
+        env_file:
+            - ./environments/db.env
+        command: /bin/sh -c "rm -f /nginx-rails-react/tmp/pids/server.pid && bundle exec puma -C config/puma.rb"
+        volumes:
+            - ./api:/nginx-rails-react
+            - ./api/vendor/bundle:/nginx-rails-react/vendor/bundle
+            - public-data:/nginx-rails-react/public
+            - tmp-data:/nginx-rails-react/tmp
+            - log-data:/nginx-rails-react/log
+        environment:
+            TZ: Asia/Tokyo
+            RAILS_ENV: development
+        ports:
+            - 3000:3000
+        depends_on:
+            - db
+    front:
+        build:
+            context: ./front/
+            dockerfile: Dockerfile
+        volumes:
+            - ./front:/usr/src/app
+            # - /usr/src/app/node_modules
+        command: sh -c "cd frontend && yarn start"
+        ports:
+            - "8000:3000"
+    web:
+        build:
+            context: containers/nginx
+        volumes:
+            - public-data:/nginx-rails-react/public
+            - tmp-data:/nginx-rails-react/tmp
+        ports:
+            - 80:80
+        depends_on:
+            - api
+volumes:
+    public-data:
+    tmp-data:
+    log-data:
+    db-data:
