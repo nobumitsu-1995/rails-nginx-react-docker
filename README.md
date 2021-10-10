@@ -2,7 +2,7 @@
 ### docker-compose build
 
 ## Railsアプリの作成
-1.　cd api. 
+1.　cd api<br>
 2.　docker-compose run api rails new . --api --force --no-deps --database=postgresql --skip-test. 
 3.　config/puma.rbを以下のように編集. 
 ```ruby:config/puma.rb
