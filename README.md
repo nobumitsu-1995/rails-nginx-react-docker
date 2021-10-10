@@ -30,4 +30,4 @@ host: db
 1.`cd front/frontend`<br>
 2.`docker-compose run front npx create-react-app frontend --template=typescript`<br>
 
-### `docker-compose up`で全てのイメージが立ち上がる。
+### `docker-compose up`でコンテナ群の起動を行う。
