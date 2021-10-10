@@ -2,9 +2,9 @@
 ### `docker-compose build`でイメージを構築
 
 ## Railsアプリの作成
-1.cd api<br>
-2.docker-compose run api rails new . --api --force --no-deps --database=postgresql --skip-test<br>
-3.config/puma.rbを以下のように編集<br>
+1.　`cd api`<br>
+2. `docker-compose run api rails new . --api --force --no-deps --database=postgresql --skip-test`<br>
+3. config/puma.rbを以下のように編集<br>
 ```ruby:config/puma.rb
 threads_count = ENV.fetch("RAILS_MAX_THREADS") { 5 }.to_i
 threads threads_count, threads_count
@@ -15,7 +15,7 @@ app_root = File.expand_path("../..", __FILE__)
 bind "unix://#{app_root}/tmp/sockets/puma.sock"
 stdout_redirect "#{app_root}/log/puma.stdout.log", "#{app_root}/log/puma.stderr.log", true
 ```
-4.config/database.ymlのdefault:を以下のように編集<br>
+4. config/database.ymlのdefault:を以下のように編集<br>
 ```ruby:config/database.yml
 adapter: postgresql
 encoding: utf8
@@ -24,10 +24,10 @@ username: <%= ENV.fetch('POSTGRES_USER') { 'root' } %>
 password: <%= ENV.fetch('POSTGRES_PASSWORD') { 'password' } %>
 host: db
 ``` 
-5.　docker-compose run api rails db:create
+5.　`docker-compose run api rails db:create`
 
 ## Reactアプリの作成
-1.`cd front/frontend`<br>
-2.`docker-compose run front npx create-react-app frontend --template=typescript`<br>
+1. `cd front/frontend`<br>
+2. `docker-compose run front npx create-react-app frontend --template=typescript`<br>
 
 ### `docker-compose up`でコンテナ群の起動を行う。
